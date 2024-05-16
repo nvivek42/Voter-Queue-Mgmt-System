@@ -24,7 +24,17 @@ app.post('/:id',(request,response)=>{
 app.post('/votingCentre/:id',(request,response)=>{
     const { id } = request.params;
   
-    const statement = `select id,queueLength,expectedTime, lastUpdated  from currentstatus where votingCentreId = ${id}`
+    const statement = 
+    `select 
+     c.id, 
+     v.votingCentreName,
+     c.queueLength, 
+     c.expectedTime, 
+     c.lastUpdated  
+     from currentstatus c
+     inner join votingcentre v 
+     on c.votingCentreId = v.votingCentreId
+     where c.votingCentreId = ${id}`
     
     db.execute(statement,(error,data) =>{
         response.send(utils.createResult(error,data))

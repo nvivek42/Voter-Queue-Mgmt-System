@@ -53,11 +53,13 @@ $('#votingCentre').on('change', function() {
                 // selectElement.empty();
                 
                     $('#ajaxTableBody').empty(); // Clear existing rows
-                
+                    console.log("response['data']: "+response['data'])
+
                     $.each(response['data'], function(index, item) {
-                        console.log(item)
+                        console.log(item.id)
                         const row = $('<tr>');
                         row.append($('<td>').text(item.id));
+                        row.append($('<td>').text(item.votingCentreName));
                         row.append($('<td>').text(item.queueLength));
                         row.append($('<td>').text(item.expectedTime));
                         row.append($('<td>').text(item.lastUpdated));
